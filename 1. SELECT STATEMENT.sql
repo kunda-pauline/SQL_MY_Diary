@@ -48,9 +48,10 @@ LIKE "A___"; # this A with 3 underscore sign means, i want a first name that sta
 
 
 
--- *******************************GROUP BY AND ORDER BY STATEMENTS ********************
+-- *******************************GROUP BY AND ORDER BY AND HAVING STATEMENTS ********************
 #The GROUP BY statement is used when we want to computer some aggregation on some column, for example average , maximum or minimum 
 #ORDER BY : This statement is used when we want to make order in our data, for example ordering in ascending or descending.
+#HAVING : is a statement that used when we want to filter data when we made aggregate 
 SELECT gender, AVG(age), MAX(age), COUNT(age)
 FROM employee_demographics
 GROUP BY gender ;        # this wole condition is calculating the average age in each group, (male and female)
@@ -71,3 +72,34 @@ FROM employee_salary
 WHERE salary >40000 AND (occupation LIKE '%Director%' OR  occupation LIKE "%Manager%")
 group by occupation having avg(salary)> 60000
 order by avg(salary) desc;
+
+#********************************LIMIT AND ALIASING*************************
+#LIMIT : is a statement where we use it for limiting the row we want to work with
+#ALIASING : it is used to rename the column, mostly when doing aggregate 
+
+SELECT *
+FROM employee_demographics
+LIMIT 5;
+
+SELECT *
+FROM employee_demographics
+LIMIT 3,2;
+
+# ********************joins**************************************
+#INNER JOIN : is statement that helps to join to table that has similar data 
+SELECT * 
+FROM employee_demographics;
+
+SELECT *
+FROM employee_salary;
+
+SELECT *
+FROM employee_demographics as dem 
+INNER JOIN employee_salary as sal
+ON dem.employee_id = sal.employee_id;
+
+SELECT dem.first_name,age,occupation,salary
+FROM employee_demographics as dem 
+INNER JOIN employee_salary as sal
+ON dem.employee_id = sal.employee_id;
+
